@@ -15,8 +15,10 @@ const DEFAULT_OPTIONS: WordFrequencyOptions = {
   retryBackoffFactor: 2,
 };
 
-const buildFrequencyAccumulator = (frequencies: WordFrequencies) => {
-  return (word: string) => {
+const buildFrequencyAccumulator = (
+  frequencies: WordFrequencies
+): ((word: string) => void) => {
+  return (word: string): void => {
     frequencies[word] = (frequencies[word] ?? 0) + 1;
   };
 };

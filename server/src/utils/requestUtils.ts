@@ -21,8 +21,12 @@ export interface RequestExecutionSummary {
   failedRequests: number;
 }
 
-const defaultDelayFn = (initialDelayMs: number, backoffFactor: number): DelayFunction => {
-  return (attempt: number) => initialDelayMs * Math.pow(backoffFactor, attempt);
+const defaultDelayFn = (
+  initialDelayMs: number,
+  backoffFactor: number
+): DelayFunction => {
+  return (attempt: number): number =>
+    initialDelayMs * Math.pow(backoffFactor, attempt);
 };
 
 export const performWithRetries = async <T>(
@@ -64,13 +68,7 @@ export const executeConcurrentRequests = async <T>(
   taskFactory: () => Promise<T>,
   options: RequestExecutionOptions<T>
 ): Promise<RequestExecutionSummary> => {
-  const {
-    totalRequests,
-    batchSize,
-    retry,
-    onSuccess,
-    onFailure,
-  } = options;
+  const { totalRequests, batchSize, retry, onSuccess, onFailure } = options;
 
   if (totalRequests <= 0) {
     return { attemptedRequests: 0, successfulRequests: 0, failedRequests: 0 };
@@ -82,7 +80,7 @@ export const executeConcurrentRequests = async <T>(
 
   const concurrency = Math.min(batchSize, totalRequests);
 
-  const worker = async () => {
+  const worker = async (): Promise<void> => {
     while (true) {
       const currentIndex = nextIndex++;
       if (currentIndex >= totalRequests) {
@@ -105,7 +103,9 @@ export const executeConcurrentRequests = async <T>(
   const attemptedRequests = totalRequests;
 
   if (successfulRequests === 0) {
-    throw new Error("All requests failed. External service may be unavailable.");
+    throw new Error(
+      "All requests failed. External service may be unavailable."
+    );
   }
 
   return {
@@ -134,4 +134,3 @@ export const withTimeout = async <T>(
     clearTimeout(timeoutHandle!);
   }
 };
-

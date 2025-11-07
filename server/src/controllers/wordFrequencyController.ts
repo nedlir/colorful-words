@@ -7,7 +7,7 @@ export const getWordFrequency = async (
   _req: Request,
   res: ExpressResponse,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     let result: WordFrequencyResult;
 

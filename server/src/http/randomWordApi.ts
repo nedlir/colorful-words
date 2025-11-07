@@ -1,6 +1,7 @@
 import { ResponseRandomWordApi } from "../types/randomWordApi";
 
-const RANDOM_WORD_API_URL = "https://random-word-api.vercel.app/api?words=1";
+// const RANDOM_WORD_API_URL = "https://random-word-api.vercel.app/api?words=1";
+const RANDOM_WORD_API_URL = "https://random-word-api.herokuapp.com/word";
 
 const normalizePayload = (payload: unknown): ResponseRandomWordApi => {
   if (!Array.isArray(payload) || typeof payload[0] !== "string") {

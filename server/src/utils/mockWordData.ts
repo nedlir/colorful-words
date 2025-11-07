@@ -1,10 +1,5 @@
-// this is a dev only file, I used it since I had no access to the API (probably got banned for over requesting)
-
 import { WordFrequencyResult } from "../types/wordFrequency";
 
-/**
- * Generates mock word frequency data with 50 foods totaling 6000 occurrences
- */
 export const getMockWords = (): WordFrequencyResult => {
   const words = [
     "pizza",
@@ -56,30 +51,35 @@ export const getMockWords = (): WordFrequencyResult => {
     "schnitzel",
     "biryani",
     "tandoori",
-    "samosa",
   ];
 
-  const frequencies: Record<string, number> = {};
-  let total = 0;
+  const TARGET = 6000;
+  const MIN_FREQ = 50;
 
-  // Generate random frequencies that sum to 6000
-  words.forEach((word, index) => {
-    if (index === words.length - 1) {
-      // Last word gets the remainder to ensure exact total of 6000
-      frequencies[word] = 6000 - total;
+  const weights = words.map(() => Math.random());
+  const totalWeight = weights.reduce((sum, word) => sum + word, 0);
+
+  const reserved = words.length * MIN_FREQ;
+  const distributable = TARGET - reserved;
+
+  const frequencies: Record<string, number> = {};
+  let allocated = 0;
+
+  words.forEach((word, i) => {
+    if (i === words.length - 1) {
+      frequencies[word] = TARGET - allocated;
     } else {
-      // Random frequency between 50 and 200
-      const freq = Math.floor(Math.random() * 151) + 50;
-      frequencies[word] = freq;
-      total += freq;
+      const extra = Math.floor((weights[i] / totalWeight) * distributable);
+      frequencies[word] = MIN_FREQ + extra;
+      allocated += frequencies[word];
     }
   });
 
   return {
     frequencies,
-    totalRequests: 100,
-    successfulRequests: 100,
-    attemptedRequests: 100,
+    totalRequests: 6000,
+    successfulRequests: 6000,
+    attemptedRequests: 6000,
     failedRequests: 0,
     uniqueWords: words.length,
   };

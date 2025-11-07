@@ -31,31 +31,39 @@ export function Words() {
   );
 
   return (
-    <div className="app">
-      <h1 className="app-title">Word Frequencies</h1>
-      <div className="app-content">
-        {isLoading && <p>Loading words…</p>}
-        {error && !isLoading && (
+    <div>
+      {isLoading && (
+        <div className="loading-state">
+          <div className="loading-spinner"></div>
+          <p>Loading visualization...</p>
+        </div>
+      )}
+      {error && !isLoading && (
+        <div className="error-state">
           <p>
             Failed to load words:{" "}
             {error instanceof Error ? error.message : "Unknown error"}
           </p>
-        )}
-        {!isLoading && !error && frequencies && isEmpty && (
+        </div>
+      )}
+      {!isLoading && !error && frequencies && isEmpty && (
+        <div className="empty-state">
           <p>No words available.</p>
-        )}
-        {!isLoading && !error && frequencies && !isEmpty && (
-          <div style={{ width: "100%", height: "600px" }}>
-            <WordCloud
-              data={wordCloudData}
-              fontSize={fontSizeMapper}
-              fill={(word: { text: string }) => getWordColor(word.text)}
-              rotate={0}
-              padding={5}
-            />
-          </div>
-        )}
-      </div>
+        </div>
+      )}
+      {!isLoading && !error && frequencies && !isEmpty && (
+        <div className="word-cloud-wrapper">
+          <WordCloud
+            data={wordCloudData}
+            fontSize={fontSizeMapper}
+            fill={(word: { text: string }) => getWordColor(word.text)}
+            rotate={0}
+            padding={2}
+            spiral="rectangular"
+            random={() => 0.5}
+          />
+        </div>
+      )}
     </div>
   );
 }

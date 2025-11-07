@@ -5,7 +5,6 @@
   align-items: center;
   justify-content: center;
   padding: var(--spacing-lg);
-  min-height: calc(100vh - 65px);
 }
 
 .app-title {
@@ -62,19 +61,24 @@
 
 /* Word Cloud Specific Styles */
 .word-cloud-wrapper {
-  width: 85vw;
-  height: 80vh;
-  position: relative;
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .word-cloud-wrapper > div {
   width: 100% !important;
   height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .word-cloud-wrapper svg {
-  width: 100% !important;
   height: 100% !important;
+  display: block !important;
 }
 
 .word-cloud-wrapper text {

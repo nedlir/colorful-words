@@ -31,39 +31,43 @@ export function Words() {
   );
 
   return (
-    <div>
-      {isLoading && (
-        <div className="loading-state">
-          <div className="loading-spinner"></div>
-          <p>Loading visualization...</p>
-        </div>
-      )}
-      {error && !isLoading && (
-        <div className="error-state">
-          <p>
-            Failed to load words:{" "}
-            {error instanceof Error ? error.message : "Unknown error"}
-          </p>
-        </div>
-      )}
-      {!isLoading && !error && frequencies && isEmpty && (
-        <div className="empty-state">
-          <p>No words available.</p>
-        </div>
-      )}
-      {!isLoading && !error && frequencies && !isEmpty && (
-        <div className="word-cloud-wrapper">
-          <WordCloud
-            data={wordCloudData}
-            fontSize={fontSizeMapper}
-            fill={(word: { text: string }) => getWordColor(word.text)}
-            rotate={0}
-            padding={2}
-            spiral="rectangular"
-            random={() => 0.5}
-          />
-        </div>
-      )}
+    <div className="app">
+      <div className="app-content">
+        {isLoading && (
+          <div className="loading-state">
+            <div className="loading-spinner"></div>
+            <p>Loading visualization...</p>
+          </div>
+        )}
+        {error && !isLoading && (
+          <div className="error-state">
+            <p>
+              Failed to load words:{" "}
+              {error instanceof Error ? error.message : "Unknown error"}
+            </p>
+          </div>
+        )}
+        {!isLoading && !error && frequencies && isEmpty && (
+          <div className="empty-state">
+            <p>No words available.</p>
+          </div>
+        )}
+        {!isLoading && !error && frequencies && !isEmpty && (
+          <div className="word-cloud-wrapper">
+            <WordCloud
+              data={wordCloudData}
+              width={800}
+              height={600}
+              fontSize={fontSizeMapper}
+              fill={(word: { text: string }) => getWordColor(word.text)}
+              rotate={0}
+              padding={2}
+              spiral="archimedean"
+              random={() => 0.5}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

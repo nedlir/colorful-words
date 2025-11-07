@@ -14,8 +14,6 @@
   max-width: var(--max-width-xl);
   margin: 0 auto;
   padding: 0 var(--spacing-lg);
-  align-items: center;
-  justify-content: center;
 }
 
 .navigation-bar-link {

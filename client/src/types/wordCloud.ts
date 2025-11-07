@@ -1,13 +1,13 @@
-export interface WordCloudWord {
+export type WordCloudWord = {
   text: string;
   value: number;
-}
+};
 
-export interface WordCloudOptions {
+export type WordCloudOptions = {
   rotations?: number;
   rotationAngles?: number[];
   fontSizes?: [number, number];
   fontFamily?: string;
   padding?: number;
   colors?: string[];
-}
+};

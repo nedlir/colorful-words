@@ -1,25 +1,25 @@
 type DelayFunction = (attempt: number) => number;
 
-export interface RetryOptions {
+export type RetryOptions = {
   maxRetries: number;
   initialDelayMs?: number;
   backoffFactor?: number;
   delayFn?: DelayFunction;
-}
+};
 
-export interface RequestExecutionOptions<T> {
+export type RequestExecutionOptions<T> = {
   totalRequests: number;
   batchSize: number;
   retry: RetryOptions;
   onSuccess?: (result: T) => void;
   onFailure?: (error: unknown) => void;
-}
+};
 
-export interface RequestExecutionSummary {
+export type RequestExecutionSummary = {
   attemptedRequests: number;
   successfulRequests: number;
   failedRequests: number;
-}
+};
 
 const defaultDelayFn = (
   initialDelayMs: number,

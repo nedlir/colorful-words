@@ -1,7 +1,7 @@
-export interface WordCloudWord {
+export type WordCloudWord = {
   text: string;
   value: number;
-}
+};
 
 export const getWordColor = (word: string): string => {
   const colors = [
@@ -19,7 +19,7 @@ export const getWordColor = (word: string): string => {
     "#5F9EA0",
     "#6495ED",
     "#4169E1",
-    "#191970", // blues
+    "#191970",
     "#8B008B",
     "#9370DB",
     "#BA55D3",

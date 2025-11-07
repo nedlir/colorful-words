@@ -12,8 +12,7 @@ export const getWordFrequency = async (
     let result: WordFrequencyResult;
 
     try {
-      // result = await computeWordFrequencies();
-      result = getMockWords(); // computeWordFrequencies() doesn't work
+      result = await computeWordFrequencies();
 
       // if no result or empty frequencies, use mock data
       if (
